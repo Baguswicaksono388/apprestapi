@@ -17,13 +17,14 @@ exports.registration = function (req, res) {
     }
 
     // cek email di DB
-    // var query = "SELECT email FROM ?? WHERE ??";
-    // var table = ["user", "email", post.email];
-    // query = mysql.format(query, table);
+    var query = "SELECT email FROM ?? WHERE ??=?";
+    var table = ["user", "email", post.email];
+    query = mysql.format(query, table);
     // console.log(query);
     // response.ok(query, res);
 
-    connection.query('SELECT email from user WHERE email=?',[post.email],
+    // connection.query('SELECT email from user WHERE email=?',[post.email],
+    connection.query(query,
         function (error, rows) {
         if (error) {
             console.log(error)
