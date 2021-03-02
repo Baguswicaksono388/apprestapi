@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 // Route get semua product
-router.get('/products', getProducts);
+// router.get('/products', getProducts);
 
 // export router
 export default router;
