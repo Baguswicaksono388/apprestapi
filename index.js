@@ -1,29 +1,37 @@
-// Import express
-import express from "express";
-// Import cors
-import cors from "cors";
-// Import connection
-import db from "./config/database.js";
-// Import router
-import Router from "./routes/routes.js";
- 
-// Init express
+const express = require('express');
+const bodyParser = require('body-parser');  //mempermudah request yang dikirim oleh client
+const cors = require('cors');
+
+// Call Model
+const db = require("./models"); //memanggil file index
+
 const app = express();
-// use express json
-app.use(express.json());
-// use cors
-app.use(cors());
- 
-// Testing database connection 
-// try {
-//     await db.authenticate();
-//     console.log('Connection has been established successfully.');
-// } catch (error) {
-//     console.error('Unable to connect to the database:', error);
-// }
- 
-// use router
-app.use(Router);
- 
-// listen on port
-app.listen(5000, () => console.log('Server running at http://localhost:5000'));
+
+// Config buat cors
+let whiteList = [
+    'http://localhost:8081' //alamat ini milit clietnya
+];
+let corsOption = {
+    origin: function (origin, callback) {
+        if (whiteList.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}
+
+app.use(cors(corsOption));
+
+// parse request dlm bentuk application/json x-www-form-urlencode(buat upload gambar didlm form)
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true })); //extended:true untuk bisa menampilkan nested json
+
+// Sync database
+db.Sequilize.sync();
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log('Server is running');
+})
