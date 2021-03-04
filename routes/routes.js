@@ -1,15 +1,15 @@
-// import express
-import express from "express";
-// Import function at Controller Product
-import {
-    getProducts,
-} from "../controller/Product";
+'use strict'
+module.exports = app => {
+    var posts = require("../controller/post.controller");
+    var registration = require("../controller/registration.controller");
+    // let router = require("express").Router();
+    // // // Create a new Post
+    // router.post("/", posts.create);
+    // app.use("/api/posts", router);
 
-// Init express router
-const router = express.Router();
+    app.route('/create').post(posts.create);
+    app.route('/api/findall').get(posts.findAll);
 
-// Route get semua product
-// router.get('/products', getProducts);
 
-// export router
-export default router;
+    app.route('/registration').post(registration.registration);
+}
