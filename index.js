@@ -29,7 +29,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); //extended:true untuk bisa menampilkan nested json
 
 // Sync database
-db.Sequilize.sync();
+db.sequelize.sync();
+
+// File Routes
+require("./routes/routes")(app);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
