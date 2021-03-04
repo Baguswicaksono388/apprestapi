@@ -1,6 +1,7 @@
-const dbConfig = require("../config/db.config");
+const dbConfig = require("../config/db.config.js");
 
 const Sequilize = require('sequelize'); //import Sequilize
+const { Sequelize } = require("sequelize");
 //memakai objek nya
 const sequelize = new Sequilize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
@@ -10,7 +11,7 @@ const sequelize = new Sequilize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     pool: {
         max: dbConfig.pool.max,
         min: dbConfig.pool.min,
-        acquire: dbConfig.pool.acquire,
+        acquire: dbConfig.pool.min,
         idle: dbConfig.pool.idle
     }
 });
@@ -20,6 +21,7 @@ const db = {};
 db.Sequilize = Sequilize;
 db.sequelize = sequelize;
 
-db.post = require("./post.model.js")(sequelize, Sequilize);
+db.post = require("./post.models.js")(sequelize, Sequilize);
+db.registration = require("./registration.models")(sequelize, Sequelize);
 
 module.exports = db;
