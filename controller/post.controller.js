@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     // Validate request null
     if (!req.body.title) {
         res.status(400).send({
-            message: "Content can not be empty"
+            message: "Content can not be empty",
         });
         return;
     }
@@ -32,7 +32,22 @@ exports.create = (req, res) => {
 
 // Get All data
 exports.findAll = (req, res) => {
+    const title = req.query.title; //parameter
+    let condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
+    Post.findAll({ where: condition })
+        .then((data) => { 
+            res.status(200).send({
+                status: "200",
+                message: "success",
+                data: data
+            });
+        }).catch((err) => {
+            res.status(500).send({
+                message: err.message ||"Some error occurred while retrive"
+            });
+        })
+        
 };
 
 // Find Single
@@ -51,11 +66,11 @@ exports.delete = (req, res) => {
 };
 
 // Delete All Post
-exports.deleteAll() = (req, res) => {
+// exports.deleteAll() = (req, res) => {
 
-}
+// };
 
 // Find all published
-exports.findAllPublished = (req, res) => {
+// exports.findAllPublished = (req, res) => {
 
-}
+// };
