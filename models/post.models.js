@@ -1,6 +1,3 @@
-const { Sequelize } = require("sequelize/types");
-const { sequelize } = require(".");
-
 module.exports = (sequelize, Sequelize) => {
     const Post = sequelize.define("post", { //nama table post
         title: {
@@ -12,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
         published: {
             type: Sequelize.BOOLEAN
         }
+    }, {
+        // Mengunci nama table
+        freezeTableName: true
     });
 
     return Post;
