@@ -52,7 +52,19 @@ exports.findAll = (req, res) => {
 
 // Find Single
 exports.findOne = (req, res) => {
+    const id = req.body.id;
 
+    Post.findByPk(id)
+        .then((data) => {
+            res.status(200).send({
+                message: "success",
+                data: data
+            });
+        }).catch((err) => {
+            res.status(500).send({
+                message: err.message || "Error retriving post with id=" + id
+            });
+        });
 };
 
 // Update a Post with id

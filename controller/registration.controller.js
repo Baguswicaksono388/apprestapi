@@ -30,7 +30,7 @@ exports.registration = async (req, res) => {
         })
         .then((data) => {
                 res.status(200).send({
-                    message: success,
+                    message: "created",
                     data: data
                 });
         }).catch((err) => {

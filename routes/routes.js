@@ -9,6 +9,7 @@ module.exports = app => {
 
     app.route('/create').post(posts.create);
     app.route('/api/findall').get(posts.findAll);
+    app.route('/api/findbyPk').get(posts.findOne);
 
 
     app.route('/registration').post(registration.registration);
