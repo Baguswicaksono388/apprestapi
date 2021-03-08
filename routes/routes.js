@@ -13,4 +13,5 @@ module.exports = app => {
 
 
     app.route('/registration').post(registration.registration);
+    app.route('/login').post(registration.login);
 }
