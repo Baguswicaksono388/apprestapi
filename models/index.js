@@ -14,6 +14,8 @@ const sequelize = new Sequilize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
         acquire: dbConfig.pool.min,
         idle: dbConfig.pool.idle
     }
+
+    // logging: false
 });
 
 const db = {};
