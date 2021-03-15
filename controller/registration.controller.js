@@ -106,7 +106,7 @@ exports.login = (req, res) => {
             res.status(200).send({
                 message: "ada",
                 token: token,
-                data: user
+                data: data
             });
             // delete data.password;
             return;
