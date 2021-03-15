@@ -4,6 +4,7 @@ const cors = require('cors');
 
 // Call Model
 const db = require("./models"); //memanggil file index
+const dbQuestionBank = require("./models/index-question-bank");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true })); //extended:true untuk bisa m
 
 // Sync database
 db.sequelize.sync();
+// dbQuestionBank.sequelize.sync();
 
 // File Routes
 require("./routes/routes")(app);
