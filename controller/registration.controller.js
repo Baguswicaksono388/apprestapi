@@ -15,12 +15,12 @@ exports.registration = async (req, res) => {
     }
 
     if (!post.username || !post.role_id) {
-        res.status(400).send({
+        res.status(422).send({
             message: "Content can not be empty",
         });
         return
     } else {
-        Post.findOrCreate({
+        Post.findOne({
             where: {
                 email: post.email,
             },
@@ -32,9 +32,21 @@ exports.registration = async (req, res) => {
             }
         })
             .then((data) => {
-                res.status(200).send({
-                    message: "created",
-                    data: data
+                if (data) {
+                    return res.status(422).send({
+                        message: "User already exist with that email"
+                    });
+                }
+                Post.create(post)
+                    .then((data) => {
+                        res.status(200).send({
+                            message: "Successfully",
+                            data: data
+                        });
+                }).catch((err) => {
+                    res.status(500).send({ //kesalahan disisi Server/BE
+                        message: err.message || "Some error occurred while creating the Post"
+                    }); 
                 });
             }).catch((err) => {
                 res.status(500).send({ //kesalahan disisi Server/BE
