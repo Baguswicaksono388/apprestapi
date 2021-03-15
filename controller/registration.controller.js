@@ -95,3 +95,37 @@ exports.login = (req, res) => {
         });
     });
 };
+
+exports.deleteUser = (req, res) => {
+    const post = {
+        id: req.body.id
+    }
+
+    Post.destroy({
+        where: {
+            id: post.id
+        }
+    }).then(function (data) {
+        res.status(200).send({
+            message: "delete",
+            data: data
+        });
+    }).catch((err) => {
+        res.status(500).send({ //kesalahan disisi Server/BE
+            message: err.message || "Some error occurred while creating the Post"
+        });
+    });
+};
+
+exports.showUser = (res) => {
+    Post.findAll().then(function (data) {
+        res.status(200).send({
+            message: "delete",
+            data: data
+        });
+    }).catch((err) => {
+        res.status(500).send({ //kesalahan disisi Server/BE
+            message: err.message || "Some error occurred while creating the Post"
+        });
+    })
+};
