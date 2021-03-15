@@ -2,6 +2,7 @@
 module.exports = app => {
     var posts = require("../controller/post.controller");
     var registration = require("../controller/registration.controller");
+    var practice_study = require("../controller/practice_study.controller");
     // let router = require("express").Router();
     // // // Create a new Post
     // router.post("/", posts.create);
@@ -14,4 +15,9 @@ module.exports = app => {
 
     app.route('/registration').post(registration.registration);
     app.route('/login').post(registration.login);
+    app.route('/delete-user').post(registration.deleteUser);
+    app.route('/show-user').get(registration.showUser);
+
+    app.route('/api/get-practice-study').post(practice_study.findAll);
+    app.route('/api/get-soal-latihan-sd').post(practice_study.getSoalLatihanSD);
 }
