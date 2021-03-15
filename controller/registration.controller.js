@@ -2,6 +2,7 @@ const db = require("../models"); //ini memanggil index.js
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const Post = db.registration;
+const Role = db.role;
 const Op = db.Sequilize.Op; //menentukan where, like, punyanya Sequilize
 var config = require('../config/secret');
 
@@ -62,6 +63,9 @@ exports.login = (req, res) => {
         password: req.body.password
     }
 
+    Role.hasMany(Post, { foreignKey: 'role_id' });
+    Post.belongsTo(Role, { foreignKey: 'role_id' });
+
     var isValidPassword = function (userpass, password) {
         return bcrypt.compareSync(password, userpass);
     }
@@ -69,7 +73,12 @@ exports.login = (req, res) => {
     Post.findOne({
         where: {
             email: post.email,
-        }
+        },
+        attributes: ['username', 'email', 'password'],
+        include: [{
+            model: Role,
+            attributes: ['id']
+        }]
     }).then(function (data) {
         if (!data) {
             res.status(404).send({
@@ -89,10 +98,11 @@ exports.login = (req, res) => {
             var token = jwt.sign({ data }, config.secret, {
                 expiresIn: 1440
             });
-            user = {
-                "username": data.username,
-                "email": data.email
-            }
+            // user = {
+            //     "username": data.username,
+            //     "email": data.email,
+            //     "id": data.id
+            // }
             res.status(200).send({
                 message: "ada",
                 token: token,
