@@ -1,17 +1,21 @@
 'use strict'
+
 module.exports = app => {
+    const requireLogin = require('../middleware/requireLogin');
     var posts = require("../controller/post.controller");
     var registration = require("../controller/registration.controller");
     var practice_study = require("../controller/practice_study.controller");
-    // let router = require("express").Router();
+    let router = require("express").Router();
     // // // Create a new Post
     // router.post("/", posts.create);
     // app.use("/api/posts", router);
+    // router.get('/coba', (req, res) => {
+    //     res.send("Hay");
+    // });
 
-    app.route('/create').post(posts.create);
+    app.route('/create').post(requireLogin,posts.create);
     app.route('/api/findall').get(posts.findAll);
     app.route('/api/findbyPk').get(posts.findOne);
-
 
     app.route('/registration').post(registration.registration);
     app.route('/login').post(registration.login);
@@ -20,4 +24,4 @@ module.exports = app => {
 
     app.route('/api/get-practice-study').post(practice_study.findAll);
     app.route('/api/get-soal-latihan-sd').post(practice_study.getSoalLatihanSD);
-}
+};

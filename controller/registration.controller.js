@@ -74,7 +74,7 @@ exports.login = (req, res) => {
         where: {
             email: post.email,
         },
-        attributes: ['username', 'email', 'password'],
+        attributes: ['id','username', 'email', 'password'],
         include: [{
             model: Role,
             attributes: ['id']
@@ -95,7 +95,7 @@ exports.login = (req, res) => {
             return;
         }
         else {
-            var token = jwt.sign({ data }, config.secret, {
+            var token = jwt.sign({id: data.id }, config.secret, {
                 expiresIn: 1440
             });
             // user = {
