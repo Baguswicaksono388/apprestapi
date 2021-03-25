@@ -25,6 +25,7 @@ db.sequelize = sequelize;
 
 db.post = require("./post.models.js")(sequelize, Sequilize);
 db.registration = require("./registration.models")(sequelize, Sequelize);
-db.role = require("./role.models")(sequelize, Sequelize);
+// db.role = require("./role.models")(sequelize, Sequelize);
+
 
 module.exports = db;
