@@ -63,8 +63,8 @@ exports.login = (req, res) => {
         password: req.body.password
     }
 
-    Role.hasMany(Post, { foreignKey: 'role_id' });
-    Post.belongsTo(Role, { foreignKey: 'role_id' });
+    // Role.hasMany(Post, { foreignKey: 'role_id' });
+    // Post.belongsTo(Role, { foreignKey: 'role_id' });
 
     var isValidPassword = function (userpass, password) {
         return bcrypt.compareSync(password, userpass);
@@ -75,10 +75,10 @@ exports.login = (req, res) => {
             email: post.email,
         },
         attributes: ['id','username', 'email', 'password'],
-        include: [{
-            model: Role,
-            attributes: ['id']
-        }]
+        // include: [{
+        //     model: Role,
+        //     attributes: ['id']
+        // }]
     }).then(function (data) {
         if (!data) {
             res.status(404).send({
