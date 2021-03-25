@@ -1,8 +1,10 @@
-const express = require('express');
-const router = express.Router();
+'use strict'
+module.exports = app => {
+    var roles = require('../controller/auth/roles.controller');
 
-router.get('/', (req, res) => {
-    res.send("hello");
-});
-
-module.exports = router
+    app.route('/create-roles').post(roles.createRole);
+    app.route('/bismillah/oke/oce').post( (req, res) => {
+        var url = req.url;
+        res.json(url.split('/')[1]);
+    })
+};
