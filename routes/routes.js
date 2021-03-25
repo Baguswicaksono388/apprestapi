@@ -5,7 +5,7 @@ module.exports = app => {
     var posts = require("../controller/post.controller");
     var registration = require("../controller/registration.controller");
     var practice_study = require("../controller/practice_study.controller");
-    let router = require("express").Router();
+    // let router = require("express").Router();
     // // // Create a new Post
     // router.post("/", posts.create);
     // app.use("/api/posts", router);
