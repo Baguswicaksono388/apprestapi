@@ -1,8 +1,10 @@
 const db = require("../models"); //ini memanggil index.js
+const dbAuth = require("../models/index-auth");
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const Post = db.registration;
-const Role = db.role;
+const Role = dbAuth.has_model_roles;
+// const Role = db.role;
 const Op = db.Sequilize.Op; //menentukan where, like, punyanya Sequilize
 var config = require('../config/secret');
 
@@ -44,6 +46,16 @@ exports.registration = async (req, res) => {
                             message: "Successfully",
                             data: data
                         });
+                        // memasukan data di db auth (table has_model_roles)
+                        const post_role = {
+                            role_id: post.role_id,
+                            model_id: data.id
+                        }
+                        Role.create(post_role).catch((err) => {
+                            res.status(500).send({ //kesalahan disisi Server/BE
+                                message: err.message
+                            }); 
+                        })
                 }).catch((err) => {
                     res.status(500).send({ //kesalahan disisi Server/BE
                         message: err.message || "Some error occurred while creating the Post"
