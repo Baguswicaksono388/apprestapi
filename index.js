@@ -14,6 +14,7 @@ const cors = require('cors');
 // Call Model
 const db = require("./models"); //memanggil file index
 const dbQuestionBank = require("./models/index-question-bank");
+const dbAuth = require("./models/index-auth");
 
 const app = express();
 
@@ -43,12 +44,14 @@ app.use(bodyParser.urlencoded({ extended: true })); //extended:true untuk bisa m
 // Sync database
 db.sequelize.sync();
 // dbQuestionBank.sequelize.sync();
+dbAuth.sequelize.sync();
 
 // File Routes
 require("./routes/routes")(app);
+require('./routes/auth')(app);
 app.use(require('./routes/auth'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log('Server is running');
+    console.log('Server is running ', PORT);
 })
