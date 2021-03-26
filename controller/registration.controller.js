@@ -46,7 +46,7 @@ exports.registration = async (req, res) => {
                             message: "Successfully",
                             data: data
                         });
-                        // memasukan data di db auth (table has_model_roles)
+                        // memasukan data di db auth (table has_model_roles`)
                         const post_role = {
                             role_id: post.role_id,
                             model_id: data.id
