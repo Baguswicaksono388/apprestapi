@@ -1,4 +1,5 @@
 const db = require('../../models/index-auth');
+const Role = db.roles;
 const RoleUser = db.role_user;
 const HasModelRoles = db.has_model_roles;
 
@@ -29,16 +30,21 @@ exports.createRoleUser = (req, res) => {
 }
 
 exports.roleUser = (req, res) => {
-    RoleUser.hasMany(HasModelRoles, { foreignKey: 'role_id'});
+    Role.hasMany(HasModelRoles, { foreignKey: 'role_id'});
+    Role.hasMany(RoleUser, { foreignKey: 'role_id'});
+    RoleUser.belongsTo(Role, { foreignKey: 'id'});
     HasModelRoles.belongsTo(RoleUser, { foreignKey: 'role_id'});
-    HasModelRoles.findOne({
-        where: {
-            model_id: 2
-        },
+    Role.findAll({
         include: [{
-            model: RoleUser,
+            model:RoleUser,
             where: {
-                url: '/bismillah/oke/oce'
+                url:'/api/findall'
+            }
+        }],
+        include: [{
+            model: HasModelRoles,
+            where: {
+                model_id:2
             }
         }]
     }).then(data => {

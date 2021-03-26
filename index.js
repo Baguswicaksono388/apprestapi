@@ -49,7 +49,7 @@ dbAuth.sequelize.sync();
 // File Routes
 require("./routes/routes")(app);
 require('./routes/auth')(app);
-app.use(require('./routes/auth'));
+// app.use(require('./routes/auth'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

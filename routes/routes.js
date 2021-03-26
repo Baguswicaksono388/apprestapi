@@ -14,7 +14,7 @@ module.exports = app => {
     // });
 
     app.route('/create').post(requireLogin,posts.create);
-    app.route('/api/findall').get(posts.findAll);
+    app.route('/api/findall').get(requireLogin, posts.findAll);
     app.route('/api/findbyPk').get(posts.findOne);
 
     app.route('/registration').post(registration.registration);
