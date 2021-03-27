@@ -33,20 +33,17 @@ exports.roleUser = (req, res) => {
     Role.hasMany(HasModelRoles, { foreignKey: 'role_id'});
     Role.hasMany(RoleUser, { foreignKey: 'role_id'});
     RoleUser.belongsTo(Role, { foreignKey: 'id'});
-    HasModelRoles.belongsTo(RoleUser, { foreignKey: 'role_id'});
+    HasModelRoles.belongsTo(Role, { foreignKey: 'id'});
     Role.findAll({
-        include: [{
-            model:RoleUser,
-            where: {
-                url:'/api/findall'
-            }
-        }],
-        include: [{
-            model: HasModelRoles,
-            where: {
-                model_id:2
-            }
-        }]
+        attributes: ['id'],
+        // include : [RoleUser, HasModelRoles]
+        include : [
+            { 
+              model: RoleUser, 
+              required: true,
+              include: [{model: HasModelRoles, required: true }]}
+          ]
+        
     }).then(data => {
         res.status(200).send({
             message: "Success",
