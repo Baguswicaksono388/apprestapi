@@ -7,7 +7,7 @@ module.exports = app => {
     app.route('/create-roles').post(roles.createRole);
     app.route('/create-role-user').post(roleUser.createRoleUser);
     app.route('/get-role-user').get(roleUser.roleUser);
-    app.route('/bismillah/oke/oce').post(requireLogin, (req, res) => {
+    app.route('/bismillah/auth').post(requireLogin, (req, res) => {
         var url = req.url;
         res.json(url);
     })

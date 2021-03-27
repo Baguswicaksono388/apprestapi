@@ -35,14 +35,19 @@ exports.roleUser = (req, res) => {
     RoleUser.belongsTo(Role, { foreignKey: 'id'});
     HasModelRoles.belongsTo(Role, { foreignKey: 'id'});
     Role.findAll({
-        attributes: ['id'],
+        attributes: [['id', 'role_id'],'name','guard_name'],
         // include : [RoleUser, HasModelRoles]
-        include : [
-            { 
-              model: RoleUser, 
-              required: true,
-              include: [{model: HasModelRoles, required: true }]}
-          ]
+        include : [{ 
+            model: RoleUser,
+            where:{url: '/create'},
+            attributes: ['role_id','url'], 
+            required: true,
+            },{
+            model: HasModelRoles,
+            where: {model_id:4},
+            attributes: [['model_id','user_id'],'role_id'],
+            required:true
+            }]
         
     }).then(data => {
         res.status(200).send({
