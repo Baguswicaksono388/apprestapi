@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../../config/secret');
 const Message = dbMessage.message;
 const Op = dbMessage.Sequelize.Op; //menentukan where, like, punyanya Sequilize
-var moment = require('moment');
 
 exports.sendMessage = (req, res) => {
     const {authorization} = req.headers;
@@ -52,9 +51,10 @@ exports.getMessage = (req, res) => {
             }
 
             const {id} = playload;
+            const date = new Date();
             console.log(id);
             Message.findAll({
-                where: {id_sender:id, createdAt:{[Op.like]:Date.now()}},
+                where: {id_sender:id, createdAt:{[Op.like]:Date.UTC()}},
                 group: 'id_receiver'
             })
             .then((data) => {
@@ -63,7 +63,7 @@ exports.getMessage = (req, res) => {
                     data: data,
                     length: data.length
                 })
-                console.log(moment().format('LLLL'));
+                console.log(date.toLocaleString());
             }).catch((err) => {
                 res.status(500).send({
                     message: err.message
