@@ -1,6 +1,8 @@
+'use strict';
 const db = require("../models"); //ini memanggil index.js
 const Post = db.post;
 const Op = db.Sequilize.Op; //menentukan where, like, punyanya Sequilize
+var fs = require('fs');
 
 // Create
 exports.create = (req, res) => {
@@ -66,6 +68,19 @@ exports.findOne = (req, res) => {
             });
         });
 };
+
+exports.decode = (req, res) => {
+    const images = req.body.images;
+    
+    let base64Image = images.split(';base64,').pop();
+
+    // var k = dateNow()('.png');
+
+
+    fs.writeFile('nama.png', base64Image, {encoding: 'base64'}, function(err) {
+        console.log('File created');
+    });
+}
 
 // Update a Post with id
 exports.update = (req, res) => {

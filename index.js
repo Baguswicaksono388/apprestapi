@@ -36,9 +36,9 @@ let corsOption = {
 app.use(cors(corsOption));
 
 // parse request dlm bentuk application/json x-www-form-urlencode(buat upload gambar didlm form)
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
-app.use(bodyParser.urlencoded({ extended: true })); //extended:true untuk bisa menampilkan nested json
+app.use(bodyParser.urlencoded({limit: '50mb',parameterLimit: 100000, extended: true })); //extended:true untuk bisa menampilkan nested json
 
 // app.use(customMiddleware);
 
