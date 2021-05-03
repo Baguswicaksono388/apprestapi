@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');  //mempermudah request yang dikirim oleh client
 const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // const customMiddleware = (req, res, next) => {
 //     const { authorization } = req.header;
@@ -54,7 +56,7 @@ require('./routes/auth')(app);
 require('./routes/message')(app);
 // app.use(require('./routes/auth'));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT_API;
 app.listen(PORT, () => {
-    console.log('Server is running ', PORT);
+    console.log('Server is running at', PORT);
 })
