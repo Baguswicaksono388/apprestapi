@@ -6,8 +6,8 @@ module.exports = {
     HOST: process.env.HOST_API,
     USER: process.env.USER_API,
     PASSWORD: process.env.PASSWORD_API,
-    DB: process.env.DB_API,
-    dialect: "mysql", //ini akan memakai query nya dari siapa ?
+    DB: process.env.DATABASE_API,
+    dialect: process.env.DB_CONNECTION, //ini akan memakai query nya dari siapa ?
     pool: { //ini seperti request time out / time limit misal ada error
         max: 5,
         min: 0,
