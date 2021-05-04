@@ -74,10 +74,12 @@ exports.decode = (req, res) => {
     
     let base64Image = images.split(';base64,').pop();
 
-    // var k = dateNow()('.png');
+    var date = Date.now();
+    const name = ('' + date + '.png');
 
+    // console.log(name);
 
-    fs.writeFile('nama.png', base64Image, {encoding: 'base64'}, function(err) {
+    fs.writeFile(name, base64Image, {encoding: 'base64'}, function(err) {
         console.log('File created');
     });
 }
