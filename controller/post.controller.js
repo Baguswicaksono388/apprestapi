@@ -75,13 +75,15 @@ exports.decode = (req, res) => {
     let base64Image = images.split(';base64,').pop();
 
     var date = Date.now();
-    const name = ('' + date + '.png');
+    const path = ('./images/' + date + '.png');
 
     // console.log(name);
 
-    fs.writeFile(name, base64Image, {encoding: 'base64'}, function(err) {
-        console.log('File created');
-    });
+    fs.writeFileSync(path, base64Image, {encoding: 'base64'});
+    return res.send(path);
+    // fs.writeFile(path, base64Image, {encoding: 'base64'}, function(err) {
+    //     console.log('File created');
+    // });
 }
 
 // Update a Post with id
