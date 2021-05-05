@@ -2,6 +2,7 @@
 const db = require("../models"); //ini memanggil index.js
 const Post = db.post;
 const Op = db.Sequilize.Op; //menentukan where, like, punyanya Sequilize
+const schedule = require('node-schedule');
 var fs = require('fs');
 
 // Create
@@ -84,6 +85,14 @@ exports.decode = (req, res) => {
     // fs.writeFile(path, base64Image, {encoding: 'base64'}, function(err) {
     //     console.log('File created');
     // });
+}
+
+exports.schedule = (req, res) => {
+    const startTime = new Date(Date.now() + 5000);
+    const endTime = new Date(startTime.getTime() + 5000);
+    const job = schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/3 * * * * *' }, function(){
+        console.log('Time for tea!');
+    });
 }
 
 // Update a Post with id
