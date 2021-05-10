@@ -7,6 +7,9 @@ const Role = dbAuth.has_model_roles;
 // const Role = db.role;
 const Op = db.Sequilize.Op; //menentukan where, like, punyanya Sequilize
 var config = require('../config/secret');
+var MailConfig = require('../config/email');
+var hbs = require('nodemailer-express-handlebars');
+var gmailTransport = MailConfig.GmailTransport;
 
 // Create Registration user
 exports.registration = async (req, res) => {
@@ -163,3 +166,19 @@ exports.showUser = (res) => {
         });
     })
 };
+
+exports.sendEmail = (req, res) => {
+    var mailOptions = {
+        from: 'susuetawa388@gmail.com',
+        to: 'baguswicaksono388@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+      };
+    gmailTransport.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+}

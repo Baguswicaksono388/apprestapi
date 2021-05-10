@@ -23,6 +23,7 @@ module.exports = app => {
     app.route('/login').post(registration.login);
     app.route('/delete-user').post(registration.deleteUser);
     app.route('/show-user').get(registration.showUser);
+    app.route('/send-email').get(registration.sendEmail);
 
     app.route('/api/get-practice-study').post(practice_study.findAll);
     app.route('/api/get-soal-latihan-sd').post(practice_study.getSoalLatihanSD);
